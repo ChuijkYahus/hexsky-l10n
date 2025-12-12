@@ -1,35 +1,49 @@
-modLoader = "javafml"
-loaderVersion = "[47,)"
+modLoader = "kotlinforforge"
+loaderVersion = "[4,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "${license}"
 
 [[mods]]
-modId = "hexsky"
+modId = "${mod_id}"
 version = "${version}"
-displayName = "Hexxy Skies"
-authors = "Me!"
+displayName = "${mod_name}"
+authors = ["Techtastic", "walksanator"]
 description = '''
-This is an example description! Tell everyone what your mod is about!
+${mod_description}
 '''
-#logoFile = ""
+logoFile = "icon.png"
 
-[[dependencies.hexsky]]
+[[dependencies.${mod_id}]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hexsky]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.hexsky]]
+[[dependencies.${mod_id}]]
 modId = "architectury"
 mandatory = true
-versionRange = "[9.2.14,)"
+versionRange = "[9.1.12,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "valkyrienskies"
+mandatory = true
+versionRange = "[${vs2_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
+modId = "hexcasting"
+mandatory = true
+versionRange = "[${hexcasting_version},)"
 ordering = "AFTER"
 side = "BOTH"
