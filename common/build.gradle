@@ -35,4 +35,7 @@ dependencies {
 
     implementation("org.joml:joml-primitives:1.10.0")
     implementation("org.joml:joml:1.10.4")
+
+    modCompileOnly "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FABRIC"
+    modCompileOnly "at.petra-k.hexcasting:hexcasting-common-${minecraft_version}:${hexcasting_version}"
 }
