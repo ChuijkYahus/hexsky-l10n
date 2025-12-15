@@ -2,14 +2,16 @@ package io.github.techtastic.hexxyskies.platform.forge
 
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.casting.iota.IotaType
-import at.petrak.hexcasting.common.lib.HexRegistries
+import at.petrak.hexcasting.xplat.IXplatAbstractions
 import io.github.techtastic.hexxyskies.HexxySkies
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceKey
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.registries.DeferredRegister
 
 object RegistryUtilsImpl {
-    private val IOTA_TYPES = DeferredRegister.create(HexRegistries.IOTA_TYPE, HexxySkies.MOD_ID)
-    private val ACTIONS = DeferredRegister.create(HexRegistries.ACTION, HexxySkies.MOD_ID)
+    private val IOTA_TYPES = DeferredRegister.create(IXplatAbstractions.INSTANCE.iotaTypeRegistry.key() as ResourceKey<Registry<IotaType<*>>>, HexxySkies.MOD_ID)
+    private val ACTIONS = DeferredRegister.create(IXplatAbstractions.INSTANCE.actionRegistry.key() as ResourceKey<Registry<ActionRegistryEntry>>, HexxySkies.MOD_ID)
 
     @JvmStatic
     fun registerIota(name: String, supplier: Function0<IotaType<*>>) : Function0<IotaType<*>> {
