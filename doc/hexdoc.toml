@@ -1,0 +1,43 @@
+modid = "hexxyskies"
+book = "hexxyskies:book"
+default_lang = "en_us"
+default_branch = "master"
+
+resource_dirs = [  # top takes priority
+    # hexdoc-only resources
+    "resources",
+    # resource dirs for Hexxy Skies
+    "{$_common.src}/main/resources",
+    { path="{$_common.src}/generated/resources", required=false },
+    "{$_fabric.src}/main/resources",
+    { path="{$_fabric.src}/generated/resources", required=false },
+    "{$_forge.src}/main/resources",
+    { path="{$_forge.src}/generated/resources", required=false },
+    # other hexdoc plugins
+    { modid="minecraft" },
+    { modid="hexdoc" },
+]
+export_dir = "src/hexdoc_hexxyskies/_export/generated"
+
+[template]
+icon = "icon.png"
+include = [
+    "hexxyskies",
+    "hexdoc",
+]
+
+[template.args]
+mod_name = "Hexxy Skies"
+author = "TechTastic"
+show_landing_text = true
+
+# platforms
+
+[_common]
+src = "../common/src"
+
+[_fabric]
+src = "../fabric/src"
+
+[_forge]
+src = "../forge/src"
