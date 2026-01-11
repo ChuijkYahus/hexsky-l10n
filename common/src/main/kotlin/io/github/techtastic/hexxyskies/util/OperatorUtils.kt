@@ -19,13 +19,26 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.Vec3
+import org.valkyrienskies.core.api.ships.LoadedServerShip
 import org.valkyrienskies.core.api.ships.Ship
+import org.valkyrienskies.core.api.util.GameTickOnly
+import org.valkyrienskies.mod.common.getLoadedShipManagingPos
 
 object OperatorUtils {
     fun List<Iota>.getShip(level: ServerLevel, idx: Int, argc: Int = 0) : Ship {
         val x = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
         if (x is ShipIota) {
             return x.getShip(level) ?: throw MishapShipNotLoaded()
+        } else {
+            throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "ship")
+        }
+    }
+
+    @OptIn(GameTickOnly::class)
+    fun List<Iota>.getLoadedShip(level: ServerLevel, idx: Int, argc: Int = 0) : LoadedServerShip {
+        val x = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
+        if (x is ShipIota) {
+            return x.getShip(level)?.transform?.positionInShip?.let { level.getLoadedShipManagingPos(it) } ?: throw MishapShipNotLoaded()
         } else {
             throw MishapInvalidIota.ofType(x, if (argc == 0) idx else argc - (idx + 1), "ship")
         }

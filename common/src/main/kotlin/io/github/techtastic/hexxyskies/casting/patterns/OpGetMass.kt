@@ -6,9 +6,7 @@ import at.petrak.hexcasting.api.casting.getBlockPos
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import io.github.techtastic.hexxyskies.casting.iota.ShipIota
-import io.github.techtastic.hexxyskies.casting.mishaps.MishapShipNotLoaded
-import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
-import org.valkyrienskies.core.api.ships.LoadedServerShip
+import io.github.techtastic.hexxyskies.util.OperatorUtils.getLoadedShip
 import org.valkyrienskies.core.api.util.GameTickOnly
 import org.valkyrienskies.mod.common.BlockStateInfo
 
@@ -20,10 +18,7 @@ object OpGetMass : ConstMediaAction {
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val i = args[0]
         val mass = if (i is ShipIota)
-                (i.getShip(env.world) as? LoadedServerShip)?.let {
-                    env.assertShipInRange(it)
-                    it.inertiaData.mass
-                } ?: throw MishapShipNotLoaded()
+                args.getLoadedShip(env.world, 0, argc).inertiaData.mass
         else {
             val pos = args.getBlockPos(0, argc)
             env.assertPosInRange(pos)

@@ -3,13 +3,11 @@ package io.github.techtastic.hexxyskies.casting.patterns.moreiotas
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
-import io.github.techtastic.hexxyskies.casting.mishaps.MishapShipNotLoaded
 import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
-import io.github.techtastic.hexxyskies.util.OperatorUtils.getShip
+import io.github.techtastic.hexxyskies.util.OperatorUtils.getLoadedShip
 import org.jblas.DoubleMatrix
 import org.joml.Matrix3dc
 import org.joml.Matrix4dc
-import org.valkyrienskies.core.api.ships.LoadedServerShip
 import org.valkyrienskies.core.api.util.GameTickOnly
 import ram.talia.moreiotas.api.casting.iota.MatrixIota
 
@@ -22,7 +20,7 @@ class OpShipGetMatrix(private val type: Type) : ConstMediaAction {
         args: List<Iota>,
         env: CastingEnvironment
     ): List<Iota> {
-        val ship = args.getShip(env.world, 0, argc) as? LoadedServerShip ?: throw MishapShipNotLoaded()
+        val ship = args.getLoadedShip(env.world, 0, argc)
         env.assertShipInRange(ship)
         return listOf(MatrixIota(when (type) {
             Type.WORLD_TO_SHIP -> ship.worldToShip.toDoubleMatrix()

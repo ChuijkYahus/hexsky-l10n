@@ -8,7 +8,7 @@ import at.petrak.hexcasting.api.casting.getDoubleBetween
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
-import io.github.techtastic.hexxyskies.util.OperatorUtils.getShip
+import io.github.techtastic.hexxyskies.util.OperatorUtils.getLoadedShip
 import org.valkyrienskies.core.api.ships.ServerShip
 import org.valkyrienskies.core.api.util.GameTickOnly
 import org.valkyrienskies.mod.common.ValkyrienSkiesMod
@@ -19,8 +19,9 @@ object OpShipSetScale: SpellAction {
     override val argc: Int
         get() = 2
 
+    @OptIn(GameTickOnly::class)
     override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
-        val ship = args.getShip(env.world, 0, argc)
+        val ship = args.getLoadedShip(env.world, 0, argc)
         val scale = args.getDoubleBetween(1, 1/16.0, 16.0)
         env.assertShipInRange(ship)
 
