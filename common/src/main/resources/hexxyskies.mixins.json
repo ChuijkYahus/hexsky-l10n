@@ -7,6 +7,8 @@
     "hexical.MixinLesserSentinelRenderer"
   ],
   "mixins": [
+    "MixinOpTeleport",
+    "MixinOpTeleport$Spell",
     "hexical.MixinPedestalBlockEntity",
     "hexodus.MixinOpChangeGravity",
     "hexodus.MixinOpGetGravity",

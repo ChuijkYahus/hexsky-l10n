@@ -1,5 +1,6 @@
 plugins {
     id 'com.gradleup.shadow'
+    id "me.modmuss50.mod-publish-plugin"
 }
 
 loom {
@@ -105,4 +106,36 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+}
+
+publishMods {
+    file = remapJar.archiveFile
+    additionalFiles.from(sourcesJar.archiveFile)
+    changelog = getLatestChangelog()
+    type = STABLE
+    modLoaders.add("forge")
+
+    version = project.version
+    displayName = "Hexxy Skies $project.version"
+
+    curseforge {
+        accessToken = System.getenv("CURSEFORGE_TOKEN") == null ? "" : System.getenv("CURSEFORGE_TOKEN")
+        projectId = "1426252"
+        minecraftVersions.add(minecraft_version)
+
+        requires("fabric-api", "architectury-api", "kotlin-for-forge", "hexcasting")
+        optional("complex-hex", "moreiotas")
+    }
+
+    modrinth {
+        accessToken = System.getenv("MODRINTH_TOKEN") == null ? "" : System.getenv("MODRINTH_TOKEN")
+        projectId = "ta01udVD"
+        minecraftVersions.add(minecraft_version)
+
+        requires("architectury-api")
+        requires("kotlin-for-forge")
+        requires("hex-casting")
+        optional("complex-hex")
+        optional("moreiotas")
+    }
 }

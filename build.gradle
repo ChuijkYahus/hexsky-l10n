@@ -5,6 +5,7 @@ plugins {
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.gradleup.shadow' version '8.3.6' apply false
     id "org.jetbrains.kotlin.jvm" version "2.0.0" apply false
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0" apply false
 }
 
 architectury {
@@ -115,4 +116,18 @@ subprojects {
             }
         }
     }
+}
+
+ext.getLatestChangelog = {
+    Collection<String> lines = file("$rootDir/CHANGELOG.md").readLines()
+    String changelog = ""
+    Boolean atSegment = false
+    for (String line : lines) {
+        if (line.startsWith("## ")) {
+            if (atSegment) break // hit next segment
+            atSegment = true
+        }
+        if (atSegment) changelog += "$line\n"
+    }
+    return changelog.trim()
 }
