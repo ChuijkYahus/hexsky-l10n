@@ -25,7 +25,7 @@
       "type": "hexcasting:pattern",
       "op_id": "hexxyskies:force/world",
       "anchor": "hexxyskies:force/world",
-      "input": "ship, force, torque",
+      "input": "ship, force, pos",
       "output": "",
       "text": "hexxyskies.page.navimancy.patterns.spells.force.world"
     },
