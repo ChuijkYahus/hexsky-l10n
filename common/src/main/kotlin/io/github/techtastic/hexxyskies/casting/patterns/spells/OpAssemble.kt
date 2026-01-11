@@ -10,6 +10,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.techtastic.hexxyskies.util.DelayedAssemblyHelper
 import io.github.techtastic.hexxyskies.util.OperatorUtils.getListOfVecs
 import net.minecraft.core.BlockPos
+import org.valkyrienskies.mod.common.ValkyrienSkiesMod
 
 object OpAssemble : SpellAction {
     override val argc: Int
@@ -19,9 +20,9 @@ object OpAssemble : SpellAction {
         val positions = args.getListOfVecs(0, argc).map {
             env.assertVecInRange(it)
             BlockPos.containing(it)
-        }.toSet()
+        }.filterNot { env.world.getBlockState(it).`is`(ValkyrienSkiesMod.ASSEMBLE_BLACKLIST) }.toSet()
 
-        if (positions.isEmpty() || positions.filterNot { env.world.getBlockState(it).isAir }.isEmpty())
+        if (positions.isEmpty())
             throw MishapInvalidIota.ofType(args[0], 0, "list.vec.empty")
 
         return SpellAction.Result(
