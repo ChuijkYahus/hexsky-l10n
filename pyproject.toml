@@ -12,6 +12,7 @@ description = "hexdoc plugin for Hexxy Skies's web book."
 readme = "doc/README.md"
 authors = [
     { name="TechTastic" },
+    { name="walksanator"}
 ]
 keywords = [
     "hexdoc",
@@ -25,6 +26,7 @@ Source = "https://github.com/TechTastic/HexxySkies"
 [tool.hatch.metadata.hooks.gradle-properties]
 dependencies = [
     "hexdoc~=1!0.1.0a24",
+    { package="hexdoc-hexcasting", op="~=", py-version="1.0.dev21", key="hexcasting_version" },
     { package="hexdoc-minecraft", op="~=", py-version="1.0.dev", key="minecraft_version" },
 ]
 
