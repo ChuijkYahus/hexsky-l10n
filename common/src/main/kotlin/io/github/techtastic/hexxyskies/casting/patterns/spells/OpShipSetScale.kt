@@ -36,6 +36,7 @@ object OpShipSetScale: SpellAction {
     private data class Spell(val ship: ServerShip, val scale: Double) : RenderedSpell {
         @OptIn(GameTickOnly::class)
         override fun cast(env: CastingEnvironment) {
+            if (ship.transform.shipToWorldScaling.x() == scale) return
             ValkyrienSkiesMod.vsCore.scaleShip(env.world.shipObjectWorld, ship, scale)
         }
     }
