@@ -40,7 +40,7 @@
     "architectury": ">=9.2.14",
     "fabric-api": "*",
     "valkyrienskies": ">=2.4.0",
-    "hexcasting": ">=0.11.3"
+    "hexcasting": ">=0.11.2"
   },
   "suggests": {
     "moreiotas": ">=0.1.1",

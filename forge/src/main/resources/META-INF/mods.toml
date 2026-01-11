@@ -45,7 +45,7 @@ side = "BOTH"
 [[dependencies.hexxyskies]]
 modId = "hexcasting"
 mandatory = true
-versionRange = "[0.11.3,)"
+versionRange = "[0.11.2,)"
 ordering = "AFTER"
 side = "BOTH"
 
