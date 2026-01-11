@@ -1,5 +1,5 @@
 modid = "hexxyskies"
-book = "hexxyskies:book"
+book = "hexcasting:thehexbook"
 default_lang = "en_us"
 default_branch = "master"
 
