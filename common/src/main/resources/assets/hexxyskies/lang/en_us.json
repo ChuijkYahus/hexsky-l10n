@@ -41,8 +41,7 @@
   "hexxyskies.entry.navimancy.interop.hexodus.get_true_strength": "Pushes strength of $(thing)Gravity$() acting on a $(thing)Ship$() compared to baseline.",
 
   "hexxyskies.entry.navimancy.interop.moreiotas": "More Navimancy",
-  "hexcasting.action.hexxyskies:slug": "Boatwright's Prfn.",
-  "hexxyskies.page.navimancy.interop.moreiotas.slug": "Returns the $(thing)Ship$()'s slug",
+  "hexxyskies.page.navimancy.interop.moreiotas.slug": "Takes a $(thing)Ship$() and returns that $(thing)Ship$()'s slug.",
   "hexcasting.action.hexxyskies:matrix/moment_of_inertia_tensor": "Inertia Purification",
   "hexxyskies.page.navimancy.interop.moreiotas.matrix.moment_of_inertia_tensor": "Returns the $(thing)Ship$()'s moment of inertia tensor as a 3x3 matrix.",
   "hexcasting.action.hexxyskies:matrix/world_ship": "Windward Purification",

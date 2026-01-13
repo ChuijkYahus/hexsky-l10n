@@ -25,6 +25,7 @@ export_dir = "src/hexdoc_hexxyskies/_export/generated"
 icon = "icon.png"
 include = [
     "hexxyskies",
+    "moreiotas",
     "hexodus",
     "hexcasting",
     "hexdoc",
