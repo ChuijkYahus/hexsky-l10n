@@ -16,6 +16,7 @@ resource_dirs = [  # top takes priority
     # other hexdoc plugins
     { modid="hexcasting" },
     { modid="hexodus" },
+    { modid="moreiotas" },
     { modid="minecraft" },
     { modid="hexdoc" },
 ]

@@ -36,7 +36,8 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
         val pos = if (type == Type.FORCE) args.getVec3(2, argc) else null
         val gtpa = ValkyrienSkiesMod.getOrCreateGTPA(env.world.dimensionId)
         env.assertShipInRange(target)
-        pos?.let(env::assertVecInRange)
+        if (reference != Reference.BODY)
+            pos?.let(env::assertVecInRange)
 
         var motionForCost = motion.lengthSqr()
         if (OperatorUtils.checkAndMarkGivenForces(userData, target))

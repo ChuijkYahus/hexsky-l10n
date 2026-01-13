@@ -100,6 +100,7 @@ dependencies {
     }
 
     modRuntimeOnly ("ram.talia.moreiotas:moreiotas-fabric-$minecraft_version:$moreiotas_version") { transitive = false }
+    runtimeOnly group: "org.jblas", name: "jblas", version: "1.2.5"
     modRuntimeOnly("maven.modrinth:complex-hex:$complexhex_version")
     modRuntimeOnly("curse.maven:hexstructuction-1283004:$hexstruction_version")
     modRuntimeOnly("ram.talia.hexal:hexal-fabric-$minecraft_version:$hexal_version") { transitive = false }
