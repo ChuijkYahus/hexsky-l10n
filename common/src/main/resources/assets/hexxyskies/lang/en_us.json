@@ -33,7 +33,7 @@
   "hexxyskies.page.navimancy.interop.hexical.assemble": "Takes a mesh and creates a $(thing)Ship$() from its points. All positions must be in ambit. The cost is one shard per position.",
 
   "hexxyskies.entry.navimancy.interop.hexodus": "Hexodus Navimancy",
-  "hexxyskies.entry.navimancy.interop.hexodus.change_gravity": "Takes a $(thing)Ship$(), an axial vector for new gravity, and a strength scalar relative to standard pull.",
+  "hexxyskies.entry.navimancy.interop.hexodus.change_gravity": "Takes a $(thing)Ship$(), an axial vector for new gravity, and a strength scalar relative to standard pull. Costs one dust per kg of mass.",
   "hexxyskies.entry.navimancy.interop.hexodus.get_duration": "Pushes the remaining twentieths of a second that $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$() will affect a $(thing)Ship$(). Zero if the $(thing)Ship$() is not under the effects of $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$().",
   "hexxyskies.entry.navimancy.interop.hexodus.get_direction": "Pushes the direction that $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$() is attempting to drag a $(thing)Ship$(), or $(l:casting/influences)$(thing)Null$() if the $(thing)Ship$() is not under the effects of $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$().",
   "hexxyskies.entry.navimancy.interop.hexodus.get_strength": "Pushes the scaling factor of $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$()'s gravity compared to baseline, or $(l:casting/influences)$(thing)Null$() if the $(thing)Ship$() is not under the effects of $(l:interop/hexodus_navimancy#hexodus:change_gravity)$(action)Gravitate$().",
