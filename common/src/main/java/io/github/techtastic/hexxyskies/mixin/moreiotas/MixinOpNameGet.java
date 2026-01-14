@@ -17,7 +17,7 @@ import java.util.List;
 
 @Mixin(OpNameGet.class)
 public class MixinOpNameGet {
-    @Inject(method = "execute", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "execute", at = @At("HEAD"), cancellable = true, remap = false)
     private void hexxyskies$executeWithShip(List<? extends Iota> args, CastingEnvironment env, CallbackInfoReturnable<List<Iota>> cir) {
         Either<Ship, Entity> target = OperatorUtils.INSTANCE.getShipOrEntity(args, env.getWorld(), 0, 1);
 
