@@ -4,15 +4,18 @@ import at.petrak.hexcasting.api.casting.ParticleSpray
 import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.castables.SpellAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
 import io.github.techtastic.hexxyskies.util.OperatorUtils
+import io.github.techtastic.hexxyskies.util.OperatorUtils.getLoadedShip
 import io.github.techtastic.hexxyskies.util.OperatorUtils.getShip
 import net.minecraft.nbt.CompoundTag
 import org.joml.Vector3dc
 import org.valkyrienskies.core.api.ships.properties.ShipId
+import org.valkyrienskies.core.api.util.GameTickOnly
 import org.valkyrienskies.mod.common.ValkyrienSkiesMod
 import org.valkyrienskies.mod.common.dimensionId
 import org.valkyrienskies.mod.common.util.GameToPhysicsAdapter
@@ -26,12 +29,13 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
             Type.TORQUE -> 2
         }
 
+    @OptIn(GameTickOnly::class)
     override fun executeWithUserdata(
         args: List<Iota>,
         env: CastingEnvironment,
         userData: CompoundTag
     ): SpellAction.Result {
-        val target = args.getShip(env.world, 0, argc)
+        val target = args.getLoadedShip(env.world, 0, argc)
         val motion = args.getVec3(1, argc)
         val pos = if (type == Type.FORCE) args.getVec3(2, argc) else null
         val gtpa = ValkyrienSkiesMod.getOrCreateGTPA(env.world.dimensionId)
@@ -39,7 +43,17 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
         if (reference != Reference.BODY)
             pos?.let(env::assertVecInRange)
 
-        var motionForCost = motion.lengthSqr()
+        var motionForCost = when (env) {
+            is CircleCastEnv -> target.inertiaData.mass / 10
+            else -> motion.lengthSqr().coerceAtMost(
+                motion.toJOML().dot(
+                    when (type) {
+                        Type.FORCE -> target.velocity
+                        Type.TORQUE -> target.angularVelocity
+                    }
+                )
+            )
+        }
         if (OperatorUtils.checkAndMarkGivenForces(userData, target))
             motionForCost++
         return SpellAction.Result(

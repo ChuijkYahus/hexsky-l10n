@@ -22,6 +22,11 @@
       "text": "hexxyskies.page.navimancy.patterns.spells.scale.set"
     },
     {
+      "type": "patchouli:text",
+      "title": "hexxyskies.page.navimancy.patterns.spells.force.title",
+      "text": "hexxyskies.page.navimancy.patterns.spells.force.explanation"
+    },
+    {
       "type": "hexcasting:pattern",
       "op_id": "hexxyskies:force/world",
       "anchor": "hexxyskies:force/world",
