@@ -38,13 +38,14 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
         env: CastingEnvironment,
         userData: CompoundTag
     ): SpellAction.Result {
+        println("Type: ${type.name}\nReference: ${reference.name}\nArguments: ${args.map { it.display().string }}")
         val target = args.getLoadedShip(env.world, 0, argc)
         val motion = args.getVec3(1, argc)
         val pos = if (type == Type.FORCE) args.getVec3(2, argc) else null
         val gtpa = ValkyrienSkiesMod.getOrCreateGTPA(env.world.dimensionId)
         env.assertShipInRange(target)
-        if (reference != Reference.BODY)
-            pos?.let(env::assertVecInRange)
+        //if (reference != Reference.BODY)
+        //    pos?.let(env::assertVecInRange)
 
         //Spell cost function: calibrated to cost 10 dust to accelerate a 1000 kg block at 10 m/s in one cast
         //The idea is that for a given ship, doubling the speed costs quadruple (like impulse)
@@ -78,16 +79,12 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
         throw IllegalStateException()
     }
 
-    companion object {
-        val UNIT_VECTOR = Vector3d(1.0, 1.0, 1.0)
-    }
-
     private data class ForceSpell(val gtpa: GameToPhysicsAdapter, val reference: Reference, val target: ShipId, val motion: Vector3dc, val pos: Vector3dc) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
             when (reference) {
                 Reference.WORLD -> gtpa.applyWorldForce(target, motion, pos)
-                Reference.BODY -> gtpa.applyBodyForce(target, motion, pos)
                 Reference.MODEL -> gtpa.applyModelForce(target, motion, pos)
+                Reference.BODY -> gtpa.applyBodyForce(target, motion, pos)
             }
         }
     }
@@ -96,8 +93,8 @@ class OpShipApply(val type: Type, val reference: Reference): SpellAction {
         override fun cast(env: CastingEnvironment) {
             when (reference) {
                 Reference.WORLD -> gtpa.applyWorldTorque(target, motion)
-                Reference.BODY -> gtpa.applyBodyTorque(target, motion)
                 Reference.MODEL -> gtpa.applyModelTorque(target, motion)
+                Reference.BODY -> gtpa.applyBodyTorque(target, motion)
             }
         }
     }
