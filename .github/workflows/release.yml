@@ -90,24 +90,24 @@ jobs:
         if: inputs.publish-mod
         run: ./gradlew forge:publishMods fabric:publishMods
 
-#      - name: Login to Azure
-#        if: inputs.publish-maven
-#        uses: azure/login@v2
-#        with:
-#          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-#          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-#          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-#
-#      - name: Get Azure access token
-#        if: inputs.publish-maven
-#        id: get-token
-#        run: |
-#          token=$(az account get-access-token --query accessToken --resource 499b84ac-1321-427f-aa17-267ca6975798 --output tsv)
-#          echo "::add-mask::$token"
-#          echo "token=$token" >> "$GITHUB_OUTPUT"
-#
-#      - name: Publish to ${{ inputs.dry_run && 'Maven Local' || 'Maven' }}
-#        if: inputs.publish-maven
-#        env:
-#          MAVEN_PASSWORD: ${{ steps.get-token.outputs.token }}
-#        run: ./gradlew ${{ inputs.dry_run && 'publishToMavenLocal' || 'publish' }}
+      - name: Login to Azure
+        if: inputs.publish-maven
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Get Azure access token
+        if: inputs.publish-maven
+        id: get-token
+        run: |
+          token=$(az account get-access-token --query accessToken --resource 499b84ac-1321-427f-aa17-267ca6975798 --output tsv)
+          echo "::add-mask::$token"
+          echo "token=$token" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Maven
+        if: inputs.publish-maven
+        env:
+          MAVEN_PASSWORD: ${{ steps.get-token.outputs.token }}
+        run: ./gradlew publish
