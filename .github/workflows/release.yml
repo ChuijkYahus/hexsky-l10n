@@ -36,7 +36,7 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
       python-version: '3.11'
-      release: ${{ inputs.publish == 'true' }}
+      release: ${{ inputs.publish-mod == 'true' }}
 
   publish-docs-pypi:
     runs-on: ubuntu-latest
