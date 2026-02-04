@@ -8,7 +8,7 @@ import ram.talia.hexal.api.casting.eval.env.WispCastEnv
 object HexalInterop {
     fun isWispOnShip(env: CastingEnvironment, ship: Ship): Boolean {
         if (env is WispCastEnv)
-            env.castingEntity?.position()?.let { pos -> env.world.getShipManagingBlock(pos)?.let { return it == ship } }
+            env.wisp.position()?.let { pos -> env.world.getShipManagingBlock(pos)?.let { return it.id == ship.id } }
         return false
     }
 }
