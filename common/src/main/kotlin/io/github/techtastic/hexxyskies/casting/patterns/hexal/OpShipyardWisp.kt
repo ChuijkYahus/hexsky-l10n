@@ -11,9 +11,12 @@ import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
 import io.github.techtastic.hexxyskies.util.OperatorUtils.getShip
 import org.valkyrienskies.core.api.ships.ServerShip
 import org.valkyrienskies.core.api.ships.Ship
+import org.valkyrienskies.core.api.util.GameTickOnly
 import org.valkyrienskies.mod.api.positionToShip
 import org.valkyrienskies.mod.api.positionToWorld
+import org.valkyrienskies.mod.api.toJOML
 import org.valkyrienskies.mod.common.entity.handling.DefaultShipyardEntityHandler
+import org.valkyrienskies.mod.common.getLoadedShipManagingPos
 import ram.talia.hexal.api.casting.eval.env.WispCastEnv
 import ram.talia.hexal.common.entities.BaseCastingWisp
 
@@ -35,11 +38,15 @@ class OpShipyardWisp(val toShipyard: Boolean) : SpellAction {
     }
 
     private data class Spell(val wisp: BaseCastingWisp, val ship: Ship, val toShipyard: Boolean) : RenderedSpell {
+        @OptIn(GameTickOnly::class)
         override fun cast(env: CastingEnvironment) {
+            val env = env as WispCastEnv
             if (toShipyard) {
-                wisp.moveTo(ship.positionToShip(wisp.position()))
+                if (ship.id != env.world.getLoadedShipManagingPos(env.wisp.position().toJOML())?.id)
+                    env.wisp.moveTo(ship.positionToShip(env.wisp.position()))
             } else {
-                wisp.moveTo(ship.positionToWorld(wisp.position()))
+                if (env.world.getLoadedShipManagingPos(env.wisp.position().toJOML()) != null)
+                    env.wisp.moveTo(ship.positionToWorld(env.wisp.position()))
             }
         }
     }
