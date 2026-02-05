@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapBadCaster
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.techtastic.hexxyskies.util.AssertionUtils.assertShipInRange
 import io.github.techtastic.hexxyskies.util.OperatorUtils.getShip
+import net.minecraft.world.entity.Entity
 import org.valkyrienskies.core.api.ships.ServerShip
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.util.GameTickOnly
@@ -31,23 +32,23 @@ class OpShipyardWisp(val toShipyard: Boolean) : SpellAction {
         if (env !is WispCastEnv) throw MishapBadCaster()
 
         return SpellAction.Result(
-            Spell(env.wisp, ship, toShipyard),
+            Spell(ship, toShipyard),
             0,
-            listOf(ParticleSpray.burst(env.wisp.position(), .75))
+            listOf(ParticleSpray.burst((env.wisp as Entity).position(), .75))
         )
     }
 
-    private data class Spell(val wisp: BaseCastingWisp, val ship: Ship, val toShipyard: Boolean) : RenderedSpell {
+    private data class Spell(val ship: Ship, val toShipyard: Boolean) : RenderedSpell {
         @OptIn(GameTickOnly::class)
         override fun cast(env: CastingEnvironment) {
             val env = env as WispCastEnv
-            val pos = env.wisp.position()
+            val pos = (env.wisp as Entity).position()
             val currentShip = env.world.getLoadedShipManagingPos(pos.toJOML())
             if (toShipyard && ship.id != currentShip?.id)
                 env.wisp.moveTo(ship.positionToShip(currentShip.positionToWorld(pos)))
             else if (currentShip == null)
                 return
-            env.wisp.moveTo(ship.positionToWorld(env.wisp.position()))
+            env.wisp.moveTo(ship.positionToWorld(pos))
         }
     }
 }
