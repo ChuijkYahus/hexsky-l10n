@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.interop.HexInterop
 import dev.architectury.event.events.common.TickEvent
 import dev.architectury.platform.Platform
+import io.github.techtastic.hexxyskies.casting.RitualShipAmbit
 import io.github.techtastic.hexxyskies.casting.WispShipAmbit
 import io.github.techtastic.hexxyskies.registry.HexxySkiesIotas
 import io.github.techtastic.hexxyskies.registry.HexxySkiesPatterns
@@ -28,6 +29,7 @@ object HexxySkies {
             PatchouliAPI.get().setConfigFlag(HexInterop.PATCHOULI_ANY_INTEROP_FLAG, true)
 
         CastingEnvironment.addCreateEventListener { env, _ -> if (Platform.isModLoaded("hexal")) env.addExtension(WispShipAmbit(env)) }
+        CastingEnvironment.addCreateEventListener { env, _ -> if (Platform.isModLoaded("lapisworks")) env.addExtension(RitualShipAmbit(env)) }
 
         TickEvent.SERVER_LEVEL_POST.register(DelayedAssemblyHelper::onTick)
 
