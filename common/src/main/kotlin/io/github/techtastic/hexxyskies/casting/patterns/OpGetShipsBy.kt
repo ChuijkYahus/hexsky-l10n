@@ -11,6 +11,8 @@ import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import org.valkyrienskies.core.api.ships.LoadedServerShip
 import org.valkyrienskies.core.api.util.GameTickOnly
+import org.valkyrienskies.mod.api.positionToWorld
+import org.valkyrienskies.mod.api.toJOML
 import org.valkyrienskies.mod.api.toMinecraft
 import org.valkyrienskies.mod.common.getLoadedShipManagingPos
 import org.valkyrienskies.mod.common.getShipsIntersecting
@@ -21,9 +23,11 @@ object OpGetShipsBy : ConstMediaAction {
 
     @OptIn(GameTickOnly::class)
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
-        val pos = args.getVec3(0, argc)
+        var pos = args.getVec3(0, argc)
         val radius = args.getPositiveDouble(1, argc)
         env.assertVecInRange(pos)
+
+        env.world.getLoadedShipManagingPos(pos.toJOML())?.let { ship -> pos = ship.positionToWorld(pos) }
 
         val aabb = AABB(pos.add(Vec3(-radius, -radius, -radius)), pos.add(Vec3(radius, radius, radius)))
         val entitiesGot = env.world.getShipsIntersecting(aabb)
