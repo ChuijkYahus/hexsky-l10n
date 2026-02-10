@@ -61,7 +61,7 @@ artifacts = [
 sources = ["doc/src"]
 
 [tool.pyright]
-pythonVersion = "3.11"
+pythonVersion = "3.12"
 pythonPlatform = "All"
 
 include = ["doc/src"]
