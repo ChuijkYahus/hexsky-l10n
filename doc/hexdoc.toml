@@ -30,7 +30,7 @@ include = [
     "hexodus",
     "hexcasting",
     "hexdoc",
-    "inline-latex"
+    "inlinelatex"
 ]
 
 [template.args]
