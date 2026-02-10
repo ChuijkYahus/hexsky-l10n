@@ -85,6 +85,7 @@ dependencies {
     modRuntimeOnly ("com.samsthenerd.inline:inline-forge:$minecraft_version-$inline_version") { transitive = false }
     modCompileOnly ("top.theillusivec4.caelus:caelus-forge:$caelus_version+1.20.1:api") { transitive = false }
     modRuntimeOnly ("top.theillusivec4.caelus:caelus-forge:$caelus_version+1.20.1") { transitive = false }
+    modRuntimeOnly("maven.modrinth:inlinelatex:$inline_latex_version-forge")
 
     modRuntimeOnly("ram.talia.moreiotas:moreiotas-forge-$minecraft_version:$moreiotas_version") { transitive = false }
     modRuntimeOnly("maven.modrinth:complex-hex:$complexhex_version")

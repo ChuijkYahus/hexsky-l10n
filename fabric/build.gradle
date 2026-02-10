@@ -98,6 +98,7 @@ dependencies {
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    modRuntimeOnly("maven.modrinth:inlinelatex:$inline_latex_version-fabric")
 
     modRuntimeOnly ("ram.talia.moreiotas:moreiotas-fabric-$minecraft_version:$moreiotas_version") { transitive = false }
     runtimeOnly group: "org.jblas", name: "jblas", version: "1.2.5"
