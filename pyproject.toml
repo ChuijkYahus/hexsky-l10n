@@ -30,7 +30,7 @@ dependencies = [
     { package="hexdoc-hexodus", op="~=", py-version="1.0.dev", key="hexodus_version" },
     { package="hexdoc-moreiotas", op="~=", py-version="1.0.dev", key="moreiotas_version" },
     { package="hexdoc-minecraft", op="~=", py-version="1.0.dev", key="minecraft_version" },
-    { package="hexdoc-inline-latex", op="~=", py-version="2.0.dev", key="inline_latex_version" },
+    { package="hexdoc-inline-latex", op="~=", py-version="1.3", key="inline_latex_version" },
 ]
 
 [tool.hatch.metadata.hooks.gradle-properties.optional-dependencies]
